@@ -24,7 +24,7 @@ VERTEX::VERTEX(u_int id, vertexTYPE type, u_int capacity, double x, double y)
 	this->filledCapacity = 0;
 }
 
-void VERTEX::FillCapacity(TRUCK* truck)
+void VERTEX::FillCapacity(TRUCK* truck)  
 {
 	if (this->filledCapacity == this->capacity)
 		return;

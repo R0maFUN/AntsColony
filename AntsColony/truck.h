@@ -34,7 +34,6 @@ public:
 
 	void Unload(VERTEX* target); // if arrived to the retail
 	
-
 	u_int GetFilledCapacity() // returns current filled capacity
 	{
 		return this->filledCapacity;

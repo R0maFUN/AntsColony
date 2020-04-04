@@ -6,6 +6,7 @@
 #include "vertex.h"
 #include "truck.h"
 #include <conio.h>
+#include "ReadData.h"
 using namespace std;
 
 #define const_TruckCAPACITY 50;
@@ -39,13 +40,11 @@ int BinarySearchID(vector<double> array , double target)
 int LinearSearchID(vector<double> array, double target)
 {
 	int i = 0;
-	
 	for (i; i < array.size(); ++i)
 	{
 		if (target <= array[i])
 			return i;
 	}
-	//return i;
 }
 u_int GetNextVertexID(VERTEX* current, vector<VERTEX*>& vertexes)
 {
@@ -60,8 +59,8 @@ u_int GetNextVertexID(VERTEX* current, vector<VERTEX*>& vertexes)
 		sum += weight;
 		probabilities.push_back(sum);
 	}
-	// have to test is probabilities changing
-	for (int i = 0 ; i < probabilities.size() ; ++i /* : probabilities*/)
+
+	for (int i = 0 ; i < probabilities.size() ; ++i )
 		probabilities[i] /= sum;
 	double rand0to1 = static_cast <double> (rand()) / static_cast <double> (RAND_MAX);
 	int result = LinearSearchID(probabilities, rand0to1);
@@ -86,7 +85,7 @@ void UpdatePheromones(vector <VERTEX*>& vertexes , double vaporizeSpeed , vector
 		}
 	}
 
-	for (auto currentTruck : trucks) // Doint all the trucks movement and increasing pheromones
+	for (auto currentTruck : trucks) // Doing all the trucks movements and increasing pheromones
 	{
 		u_int destID = GetNextVertexID(vertexes[currentTruck->GetCurrentVertexID()], vertexes);
 		VisitVertex(currentTruck, vertexes[destID]);
@@ -101,13 +100,7 @@ void UpdatePheromones(vector <VERTEX*>& vertexes , double vaporizeSpeed , vector
 	
 }
 
-void setcur(int x, int y)//установка курсора на позицию  x y
-{
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-};
+
 
 int main()
 {
@@ -122,37 +115,13 @@ int main()
 	double x, y;
 	vector<VERTEX*> vertexes;
 
-	cout << "Enter the amount of trucks" << endl;
-	cin >> trucksAmount;
-	system("cls");
-	cout << "Enter the capacity of trucks" << endl;
-	cin >> truckCapacity;
-	system("cls");
-	cout << "Enter the amount of vertexes" << endl;
-	cin >> vertexAmount;
-	system("cls");
+	//cout << "Enter the file name (with .txt)";
+	//string filename;
+	//cin >> filename;
 
-	cout << "Enter the x coordinate of warehouse" << endl;
-	cin >> x;
-	system("cls");
-	cout << "Enter the y coordinate of warehouse" << endl;
-	cin >> y;
-	system("cls");
-
-	VERTEX* warehouse = new VERTEX(0, vertexTYPE::warehouse, x, y);
-	vertexes.push_back(warehouse);
-
-	for (int i = 1; i < vertexAmount; ++i)
-	{
-		cout << "Enter the x coordinate of #" << i << " retailer" << endl;
-		cin >> x;
-		system("cls");
-		cout << "Enter the y coordinate of #" << i << " retailer" << endl;
-		cin >> y;
-		system("cls");
-		VERTEX* retailer = new VERTEX(i, vertexTYPE::retailer, 200 , x, y);
-		vertexes.push_back(retailer);
-	}
+	ReadData("C101.txt", vertexes, truckCapacity, trucksAmount);
+	
+	//ReadDataFromConsole(vertexes, truckCapacity, trucksAmount, vertexAmount);
 
 	for (int i = 0; i < trucksAmount; ++i)
 	{
@@ -173,19 +142,12 @@ int main()
 		setcur(0, 0);
 
 		for (auto i : vertexes)
-		{
 			for (auto j : *i->GetPheromones())
-			{
 				cout << i->GetID() << " -> " << j.first->GetID() << " = " << j.second << endl;
-			}
-		}
 
 		action = _getch();
-		cout << "something"; // test is Git works
 		UpdatePheromones(vertexes, 0.1, trucks, 0);
-
 	}
 
-
-
+	return 0;
 }

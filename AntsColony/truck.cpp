@@ -16,7 +16,7 @@ void TRUCK::Unload(VERTEX* target) // if arrived to the retail
 	target->FillCapacity(this);
 }
 
-void TRUCK::Ride(VERTEX* destination)
+void TRUCK::Ride(VERTEX* destination) // changing the current location
 {
 	this->location = destination->GetID();
 }

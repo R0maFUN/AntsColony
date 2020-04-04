@@ -139,10 +139,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ReadData.cpp" />
     <ClCompile Include="truck.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ReadData.h" />
     <ClInclude Include="truck.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
