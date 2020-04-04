@@ -168,7 +168,7 @@ int main()
 		i->SetPheromones(vertexes, 1);
 	}
 
-	while ( /*(action = _getch()) != 13*/1 )
+	while (1)
 	{
 		setcur(0, 0);
 
@@ -181,14 +181,9 @@ int main()
 		}
 
 		action = _getch();
-
+		cout << "something"; // test is Git works
 		UpdatePheromones(vertexes, 0.1, trucks, 0);
 
-		/*if (action == 32)
-		{
-			cout << "Press any key to continue" << endl;
-			while (action = _getch());
-		}*/
 	}
 
 
